@@ -35,7 +35,7 @@ test_orcid_or_name = form.text_input("Input ORCID/Name, or anything", '0000-0002
 submit_button = form.form_submit_button(label='Submit')
 col_side_0, col_side_1 = st.sidebar.columns([1,2])
 col_side_0.write('RKIT©2024')
-col_side_1.write("chun.xiao@uts.edu.au")
+col_side_1.write("chun")
 
 st.write("---")
 
