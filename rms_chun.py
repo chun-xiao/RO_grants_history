@@ -9,9 +9,7 @@ import pandas as pd
 
 def rms_ci_query(ci_name_or_id, current = False):
     page_size = 500
-    if current:
-        query_url = f'''https://dataportal.arc.gov.au/RGS/API/grants?page%5Bnumber%5D=1&page%5Bsize%5D={page_size}&filter=("{ci_name_or_id}")'''
-    else:
+    if not current:
         query_url = f'''https://dataportal.arc.gov.au/NCGP/API/grants?page%5Bnumber%5D=1&page%5Bsize%5D={page_size}&filter=("{ci_name_or_id}")'''
     r = requests.get(query_url, allow_redirects=True)
     r_json = json.loads(r.text)
@@ -25,9 +23,7 @@ def rms_ci_query(ci_name_or_id, current = False):
         total_pages = r_json['meta']['total-pages']
         if total_pages > 1:
             for each_page in range(2, total_pages+1, 1):
-                if current:
-                    query_url = f'''https://dataportal.arc.gov.au/RGS/API/grants?page%5Bnumber%5D={each_page}&page%5Bsize%5D={page_size}&filter=("{ci_name_or_id}")'''
-                else:
+                if not current:
                     query_url = f'''https://dataportal.arc.gov.au/NCGP/API/grants?page%5Bnumber%5D={each_page}&page%5Bsize%5D={page_size}&filter=("{ci_name_or_id}")'''
                 r = requests.get(query_url, allow_redirects=True)
                 r_json = json.loads(r.text)
@@ -39,9 +35,7 @@ def rms_ci_query(ci_name_or_id, current = False):
                 grants = grants.drop(columns = [drop_col], axis =1)
     
         grants['searched_by'] = ci_name_or_id
-        if current:
-            grants['searched_DB'] = 'RGS'
-        else:
+        if not current:
             grants['searched_DB'] = 'NCGP'
     except:
         grants = pd.DataFrame()
