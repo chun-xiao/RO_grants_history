@@ -29,7 +29,7 @@ st.title("ARC Grants History")
 st.sidebar.title(":pencil: Settings")
 form = st.sidebar.form(key='settings_form')
 
-# test_orcid_or_name = form.selectbox("Input ORCID or Name", ['0000-0002-0802-9567', "Wenguan Wang", "Xiaojun Chang"], 0)
+
 test_orcid_or_name = form.text_input("Input ORCID/Name, or anything", '0000-0002-0802-9567')
 
 submit_button = form.form_submit_button(label='Submit')
