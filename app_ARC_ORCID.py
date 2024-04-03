@@ -42,13 +42,12 @@ st.write("---")
 
 df_grants = rms_ci_query(test_orcid_or_name)
 
-columns_long_text = ['national-interest-test-statement', 'grant-summary']
-df_summary = df_grants[['code'] + columns_long_text].copy()
-cols_to_show = [item for item  in df_grants.columns if item not in columns_long_text]
-
 if df_grants.shape[0] > 0:
-    st.table(df_grants[cols_to_show])
-    
+    columns_long_text = ['national-interest-test-statement', 'grant-summary']
+    df_summary = df_grants[['code'] + columns_long_text].copy()
+    cols_to_show = [item for item  in df_grants.columns if item not in columns_long_text]
+
+    st.table(df_grants[cols_to_show])    
     csv = convert_df(df_grants)
     col_0, col_1 = st.columns([5,1])
     col_1.download_button(
